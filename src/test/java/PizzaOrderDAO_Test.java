@@ -113,10 +113,10 @@ public class PizzaOrderDAO_Test {
             test.create(testPizzaOrder2);
             test.create(testPizzaOrder3);
 
-            Assertions.assertEquals(testPizzaOrder1, test.getByOrderID(1).get(0));
-            Assertions.assertEquals(testPizzaOrder3, test.getByOrderID(1).get(1));
+            Assertions.assertEquals(testPizzaOrder1, test.get(1,1));
+            Assertions.assertEquals(testPizzaOrder3, test.get(2, 1));
 
-            Assertions.assertEquals(testPizzaOrder2, test.getByOrderID(3).get(0));
+            Assertions.assertEquals(testPizzaOrder2, test.get(3, 3));
         }
     }
 
@@ -139,7 +139,7 @@ public class PizzaOrderDAO_Test {
             PizzaOrder updatedPizzaOrder = new PizzaOrder(4, pizzaDAO.find("Salami").get(0), 1);
             test.update(updatedPizzaOrder);
 
-            Assertions.assertEquals(updatedPizzaOrder, test.getByOrderID(1).get(0));
+            Assertions.assertEquals(updatedPizzaOrder, test.get(1, 1));
         }
     }
 
@@ -159,13 +159,7 @@ public class PizzaOrderDAO_Test {
             test.create(testPizzaOrder2);
             test.create(testPizzaOrder3);
 
-            Assertions.assertNotNull(test.getByOrderID(testPizzaOrder1.getOrderID()));
-            Assertions.assertEquals(3, test.list().size());
-
-            test.delete(testPizzaOrder1.getPizzaID(), testPizzaOrder1.getOrderID());
-
-            Assertions.assertEquals(1, test.getByOrderID(testPizzaOrder1.getOrderID()).size());
-            Assertions.assertEquals(2, test.list().size());
+            Assertions.assertEquals(testPizzaOrder2, test.get(3, 3));
         }
     }
 

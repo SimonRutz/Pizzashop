@@ -53,24 +53,25 @@ public class PizzaOrderDAO {
         }
     }
 
-    public List<PizzaOrder> getByOrderID (int id) throws SQLException {
+    public PizzaOrder get (int pizzaID, int orderID) throws SQLException {
 
-        List<PizzaOrder> returnPizzaOrder = new LinkedList<>();
+        PizzaOrder returnPizzaOrder = new PizzaOrder();
 
-        try(PreparedStatement statement = connection.prepareStatement("select amount, pizza_ID, orders_ID from pizza_ordering where orders_ID = ?")) {
+        try(PreparedStatement statement = connection.prepareStatement("select amount, pizza_ID, orders_ID from pizza_ordering where pizza_ID = ? and orders_ID = ?")) {
 
-            statement.setInt(1, id);
+            statement.setInt(1, pizzaID);
+            statement.setInt(2, orderID);
 
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
 
                 Integer amount = resultSet.getInt("amount");
-                Integer pizzaID = resultSet.getInt("pizza_ID");
-                Integer ordersId = resultSet.getInt("orders_ID");
+                Integer pizza_ID = resultSet.getInt("pizza_ID");
+                Integer orders_ID = resultSet.getInt("orders_ID");
 
                 PizzaDAO pizzaDAO = new PizzaDAO(connection);
-                returnPizzaOrder.add(new PizzaOrder(amount, pizzaDAO.get(pizzaID), ordersId));
+                returnPizzaOrder = new PizzaOrder(amount, pizzaDAO.get(pizza_ID), orders_ID);
             }
         }
         return returnPizzaOrder;
