@@ -2,14 +2,25 @@ package ch.ti8m.azubi.sru.pizzashop.service;
 
 import ch.ti8m.azubi.sru.pizzashop.dto.Pizza;
 import ch.ti8m.azubi.sru.pizzashop.persistence.PizzaDAO;
+import ch.ti8m.azubi.sru.pizzashop.persistence.PizzaOrderDAO;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class PizzaServiceImpl implements PizzaService{
 
-    PizzaDAO pizzaDAO = new PizzaDAO();
+    private Connection connection;
+    private PizzaDAO pizzaDAO;
+
+    public PizzaServiceImpl() {
+    }
+
+    public PizzaServiceImpl(Connection connection) {
+        this.connection = connection;
+        pizzaDAO = new PizzaDAO(connection);
+    }
 
     @Override
     public Pizza createPizza(Pizza pizza) throws IllegalArgumentException, SQLException {

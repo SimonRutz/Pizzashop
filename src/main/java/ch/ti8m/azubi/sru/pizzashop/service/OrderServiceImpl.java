@@ -3,14 +3,25 @@ package ch.ti8m.azubi.sru.pizzashop.service;
 import ch.ti8m.azubi.sru.pizzashop.dto.Order;
 import ch.ti8m.azubi.sru.pizzashop.persistence.OrderDAO;
 
+
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
+
 
 public class OrderServiceImpl implements OrderService {
 
-    OrderDAO orderDAO = new OrderDAO();
+    private Connection connection;
+    OrderDAO orderDAO;
+
+    public OrderServiceImpl() {
+    }
+
+    public OrderServiceImpl(Connection connection) {
+        this.connection = connection;
+        orderDAO = new OrderDAO(connection);
+    }
+
 
     @Override
     public Order createOrder(Order order) throws IllegalArgumentException, SQLException {

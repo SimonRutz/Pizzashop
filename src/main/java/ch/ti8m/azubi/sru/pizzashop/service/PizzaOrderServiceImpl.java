@@ -1,15 +1,26 @@
 package ch.ti8m.azubi.sru.pizzashop.service;
 
 import ch.ti8m.azubi.sru.pizzashop.dto.PizzaOrder;
+import ch.ti8m.azubi.sru.pizzashop.persistence.OrderDAO;
 import ch.ti8m.azubi.sru.pizzashop.persistence.PizzaOrderDAO;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 public class PizzaOrderServiceImpl implements PizzaOrderService{
 
-    PizzaOrderDAO pizzaOrderDAO = new PizzaOrderDAO();
+    private Connection connection;
+    private PizzaOrderDAO pizzaOrderDAO;
+
+    public PizzaOrderServiceImpl() {
+    }
+
+    public PizzaOrderServiceImpl(Connection connection) {
+        this.connection = connection;
+        pizzaOrderDAO = new PizzaOrderDAO(connection);
+    }
 
     @Override
     public PizzaOrder createPizzaOrder(PizzaOrder pizzaOrder) throws IllegalArgumentException, SQLException {
