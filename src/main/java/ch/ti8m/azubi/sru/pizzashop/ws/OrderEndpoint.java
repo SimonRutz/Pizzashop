@@ -50,7 +50,8 @@ public class OrderEndpoint {
         orderService().updateOrder(order);
     }
 
-    @DELETE
+
+    @DELETE 
     @Path("/{id}")
     public void deleteOrder(@PathParam("id") int id) throws SQLException {
         orderService().deleteOrder(id);

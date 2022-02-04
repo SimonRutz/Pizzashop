@@ -1,6 +1,5 @@
 import ch.ti8m.azubi.sru.pizzashop.dto.Order;
 import ch.ti8m.azubi.sru.pizzashop.persistence.OrderDAO;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +8,6 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import java.util.List;
 
 public class OrderDAO_Test {

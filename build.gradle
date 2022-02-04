@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group 'ch.ti8m.azubi.sru'
@@ -19,8 +20,10 @@ dependencies {
     implementation 'javax:javaee-api:7.0'
     implementation 'org.glassfish.jersey.containers:jersey-container-servlet:2.25'
     implementation 'org.glassfish.jersey.media:jersey-media-json-jackson:2.25'
-
-
+    implementation 'org.freemarker:freemarker:2.3.20'
+    implementation "org.apache.tomcat:tomcat:9.0.35@zip"
+    implementation 'org.codehaus.cargo:cargo-core-uberjar:1.7.12'
+    implementation 'org.codehaus.cargo:cargo-ant:1.7.12'
 
 }
 
