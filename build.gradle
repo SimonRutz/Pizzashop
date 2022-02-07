@@ -1,30 +1,151 @@
-plugins {
-    id 'java'
-    id 'application'
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-cargo-plugin:2.7.1'
+    }
 }
 
-group 'ch.ti8m.azubi.sru'
-version '1.0.0-SNAPSHOT'
+apply plugin: 'war'
+apply plugin: 'com.bmuschko.cargo'
+
+defaultTasks 'clean', 'build'
+
+description = 'Example Webapp Project'
+group = 'ch.ti8m.azubi.sru'
+version = '1.0.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
 }
 
-dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-    testImplementation "com.h2database:h2:1.4.199"
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.6'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.6'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.6'
-    implementation 'javax:javaee-api:7.0'
-    implementation 'org.glassfish.jersey.containers:jersey-container-servlet:2.25'
-    implementation 'org.glassfish.jersey.media:jersey-media-json-jackson:2.25'
-    implementation 'org.freemarker:freemarker:2.3.20'
-    implementation "org.apache.tomcat:tomcat:9.0.35@zip"
-    implementation 'org.codehaus.cargo:cargo-core-uberjar:1.7.12'
-    implementation 'org.codehaus.cargo:cargo-ant:1.7.12'
+compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
 
+war {
+    archiveName 'webapp-project.war'
+    manifest {
+        attributes(
+                "Name": project.name,
+                "Version": project.version
+        )
+    }
+}
+
+ext.libs = [
+        jee              : 'javax:javaee-api:7.0',
+        javaCompatibility: [
+                'javax.xml.bind:jaxb-api:2.2.11',
+                'javax.activation:activation:1.1.1'
+        ],
+        junit            : 'junit:junit:4.12',
+        loggingAPI       : [
+                'org.slf4j:slf4j-api:1.7.22'
+        ],
+        loggingImpl      : [
+                'org.slf4j:jcl-over-slf4j:1.7.22',
+                'org.slf4j:jul-to-slf4j:1.7.22',
+                'ch.qos.logback:logback-classic:1.1.8'
+        ],
+        json             : [
+                'com.fasterxml.jackson.core:jackson-databind:2.8.5',
+                'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.5'
+        ],
+        jaxrs            : [
+                'org.glassfish.jersey.containers:jersey-container-servlet:2.25',
+                'org.glassfish.jersey.media:jersey-media-json-jackson:2.25'
+        ],
+        freemarker: [
+                'org.freemarker:freemarker:2.3.20'
+        ],
+        cargo            : [
+                'org.codehaus.cargo:cargo-core-uberjar:1.7.12',
+                'org.codehaus.cargo:cargo-ant:1.7.12'
+        ]
+]
+
+
+dependencies {
+    cargo libs.cargo
+
+    implementation libs.jee
+    implementation libs.jaxrs
+    implementation libs.javaCompatibility
+    implementation libs.json
+    implementation libs.freemarker
+    implementation libs.loggingAPI
+    implementation libs.loggingImpl
+
+    testImplementation libs.junit
+
+    testImplementation "com.h2database:h2:1.4.199"
+}
+
+
+def confDir=mkdir(file("container/config"))
+
+configurations {
+    tomcat
+}
+
+dependencies {
+    implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
+    tomcat "org.apache.tomcat:tomcat:9.0.35@zip"
+}
+
+cargo {
+
+    containerId = 'tomcat9x'
+    port = Integer.valueOf(project.property('tomcat.port'))
+
+    deployable {
+        context = 'pizzashop'
+    }
+
+    local {
+        configHomeDir = confDir
+
+        installer {
+            installConfiguration = configurations.tomcat
+            downloadDir = file("container/download")
+            extractDir = file("container/extract")
+        }
+    }
+
+    remote {
+        hostname = project.property('tomcat.host')
+        username = project.property('tomcat.user')
+        password = project.property('tomcat.password')
+        containerProperties {
+            property 'cargo.tomcat.ajp.port', 9099
+        }
+    }
+}
+
+task deploy(dependsOn: ['clean', 'build', 'cargoRedeployRemote']) {
+    group = 'Deploy'
+    description = 'Build the WAR and deploy it to an existing Tomcat installation'
+}
+
+task run(dependsOn: ['clean', 'assemble', 'cargoRunLocal']) {
+    logging.captureStandardOutput LogLevel.INFO
+    group = 'Deploy'
+    description = 'Build the WAR and deploy it to a local Tomcat installation'
+}
+
+task start(dependsOn: ['run']) {
+}
+
+task stop(dependsOn: ['cargoStopLocal']) {
+    group = 'Deploy'
+    description = 'Stop the local Tomcat installation'
 }
 
 test {

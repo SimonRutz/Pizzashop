@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="PizzaOrderDAO_Test" tests="6" skipped="0" failures="0" errors="0" timestamp="2022-02-04T14:45:41" hostname="TIM-N468" time="2.567">
+<testsuite name="PizzaOrderDAO_Test" tests="6" skipped="0" failures="0" errors="0" timestamp="2022-02-07T10:37:15" hostname="TIM-N468" time="2.566">
   <properties/>
-  <testcase name="create()" classname="PizzaOrderDAO_Test" time="0.432"/>
-  <testcase name="delete()" classname="PizzaOrderDAO_Test" time="0.436"/>
-  <testcase name="update()" classname="PizzaOrderDAO_Test" time="0.427"/>
+  <testcase name="create()" classname="PizzaOrderDAO_Test" time="0.44"/>
+  <testcase name="delete()" classname="PizzaOrderDAO_Test" time="0.421"/>
+  <testcase name="update()" classname="PizzaOrderDAO_Test" time="0.43"/>
   <testcase name="get()" classname="PizzaOrderDAO_Test" time="0.422"/>
-  <testcase name="find()" classname="PizzaOrderDAO_Test" time="0.424"/>
-  <testcase name="list()" classname="PizzaOrderDAO_Test" time="0.425"/>
+  <testcase name="find()" classname="PizzaOrderDAO_Test" time="0.426"/>
+  <testcase name="list()" classname="PizzaOrderDAO_Test" time="0.426"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
