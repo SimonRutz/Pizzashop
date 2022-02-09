@@ -86,6 +86,7 @@ dependencies {
     testImplementation libs.junit
 
     testImplementation "com.h2database:h2:1.4.199"
+    implementation 'mysql:mysql-connector-java:8.0.25'
 }
 
 

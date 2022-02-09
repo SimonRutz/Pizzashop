@@ -1,35 +1,36 @@
 package ch.ti8m.azubi.sru.pizzashop.ws;
 
 import ch.ti8m.azubi.sru.pizzashop.dto.Order;
-import ch.ti8m.azubi.sru.pizzashop.service.OrderService;
 import ch.ti8m.azubi.sru.pizzashop.service.OrderServiceImpl;
-import ch.ti8m.azubi.sru.pizzashop.service.OrderServiceRegistry;
+import ch.ti8m.azubi.sru.pizzashop.persistence.DataBaseConnection;
 
-import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
+@Path("/Order")
 public class OrderEndpoint {
 
-    private OrderService orderService() {
-        return OrderServiceRegistry.getInstance().get(OrderService.class);
+    DataBaseConnection dataBaseConnection = new DataBaseConnection();
+    OrderServiceImpl orderService = new OrderServiceImpl(dataBaseConnection.connection());
+
+    public OrderEndpoint() throws SQLException, ClassNotFoundException {
     }
 
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Order> getOrderList() throws SQLException {
-        return orderService().list();
+        return orderService.list();
     }
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Order getOrder(@PathParam("id") int id) throws SQLException {
-        return orderService().getOrder(id);
+        return orderService.getOrder(id);
     }
 
     @POST
@@ -41,20 +42,20 @@ public class OrderEndpoint {
         order.setPhoneNumber(phoneNumber);
         order.setAddress(address);
 
-        return orderService().createOrder(order);
+        return orderService.createOrder(order);
     }
 
     @PUT
     @Path("/")
     public void updateOrder(Order order) throws SQLException {
-        orderService().updateOrder(order);
+        orderService.updateOrder(order);
     }
 
 
     @DELETE 
     @Path("/{id}")
     public void deleteOrder(@PathParam("id") int id) throws SQLException {
-        orderService().deleteOrder(id);
+        orderService.deleteOrder(id);
     }
 
 }

@@ -1,9 +1,8 @@
 package ch.ti8m.azubi.sru.pizzashop.web;
 
 import ch.ti8m.azubi.sru.pizzashop.dto.Pizza;
-import ch.ti8m.azubi.sru.pizzashop.service.PizzaService;
+import ch.ti8m.azubi.sru.pizzashop.persistence.DataBaseConnection;
 import ch.ti8m.azubi.sru.pizzashop.service.PizzaServiceImpl;
-import ch.ti8m.azubi.sru.pizzashop.service.PizzaServiceRegistry;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -14,59 +13,47 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 @WebServlet("/Pizza")
 public class PizzaServlet extends HttpServlet {
-    public PizzaServlet() throws SQLException {
+    public PizzaServlet() throws SQLException, ClassNotFoundException {
     }
 
-    //private Template template;
-//
-    //public PizzaServlet() throws SQLException {
-    //}
-//
-    //@Override
-    //public void init() throws ServletException {
-    //    template = new FreemarkerConfig().loadTemplate("PizzaSelection.ftl");
-    //}
+    private Template template;
+
+    @Override
+    public void init() throws ServletException {
+        template = new FreemarkerConfig().loadTemplate("PizzaSelection.ftl");
+    }
+
+    DataBaseConnection dataBaseConnection = new DataBaseConnection();
+
+    PizzaServiceImpl pizzaService = new PizzaServiceImpl(dataBaseConnection.connection());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        //List<Pizza> pizzaList = new LinkedList<>();
-        //try {
-        //    pizzaList = pizzaService.list();
-        //} catch (SQLException e) {
-        //    e.printStackTrace();
-        //}
-//
-        //Writer writer = resp.getWriter();
-        //Map<String, Object> model = new HashMap<>();
-        //model.put("pizzaList", pizzaList);
-//
-        //try {
-        //    template.process(model, writer);
-        //} catch (TemplateException e) {
-        //    e.printStackTrace();
-        //}
+        List<Pizza> pizzaList = null;
 
-        resp.setContentType("text/html");
+        try {
+            pizzaList = pizzaService.list();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-        PrintWriter out = resp.getWriter();
+        PrintWriter writer = resp.getWriter();
+        Map<String, Object> model = new HashMap<>();
+        model.put("pizzaList", pizzaList);
 
-        out.println("<html><body>");
-
-        out.println("<h1>Pizza</h1>");
-
-        out.println("</body></html>");
+        try {
+            template.process(model, writer);
+        } catch (TemplateException e) {
+            throw new IOException();
+        }
     }
 
     @Override
@@ -76,8 +63,4 @@ public class PizzaServlet extends HttpServlet {
         doGet(req, resp);
     }
 
-
-   //DataBaseConnection dataBaseConnection = new DataBaseConnection();
-
-   //PizzaServiceImpl pizzaService = new PizzaServiceImpl(dataBaseConnection.connection);
 }

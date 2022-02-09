@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="PizzaSelectionCSS.css">
+    <link rel="stylesheet" type="text/css" href="PizzaSelectionCSS.css">
     <title>PizzaShop Simon</title>
 </head>
 <body>
@@ -13,7 +13,7 @@
 
     <input type="text" placeholder="Margherita..." id="Searchbar">
     <button id="SearchButton"> Search </button>
-    <a href="/Order" id="OrderLink"> Order</a>
+    <a href="/pizzashop/Order" id="OrderLink"> Order</a>
 </div>
 <!--<div id="Footer">
     Footer
@@ -22,7 +22,8 @@
     <#list pizzaList as pizza>
     <div id="Pizza">
         ${pizza.name}
-        ${pizza.price}
+        Price: ${pizza.price}
+        <button id="cartButton"> Add to Cart </button>
     </div>
     </#list>
 </div>
