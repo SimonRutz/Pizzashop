@@ -21,8 +21,9 @@
 <div id="PizzaMenu">
     <#list pizzaList as pizza>
     <div id="Pizza">
-        ${pizza.name}
-        Price: ${pizza.price}
+        <div id="PizzaName"> ${pizza.name} </div>
+        <p></p>
+        <div id="PizzaPrice"> Price: ${pizza.price} CHF</div>
         <button id="cartButton"> Add to Cart </button>
     </div>
     </#list>

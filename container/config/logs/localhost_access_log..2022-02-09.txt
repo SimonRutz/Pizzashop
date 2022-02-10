@@ -1,5 +1,0 @@
-127.0.0.1 - - [09/Feb/2022:16:13:57 +0100] "GET /cargocpc/index.html HTTP/1.1" 200 124
-0:0:0:0:0:0:0:1 - - [09/Feb/2022:16:14:00 +0100] "GET /pizzashop/Pizza HTTP/1.1" 200 1312
-0:0:0:0:0:0:0:1 - - [09/Feb/2022:16:14:00 +0100] "GET /pizzashop/PizzaSelectionCSS.css HTTP/1.1" 304 -
-0:0:0:0:0:0:0:1 - - [09/Feb/2022:16:21:48 +0100] "GET /pizzashop/Pizza HTTP/1.1" 200 1312
-0:0:0:0:0:0:0:1 - - [09/Feb/2022:16:21:53 +0100] "GET /pizzashop/Order HTTP/1.1" 200 46

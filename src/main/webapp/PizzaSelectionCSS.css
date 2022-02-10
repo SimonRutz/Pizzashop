@@ -8,9 +8,12 @@ body{
 #Header{
     color: rgb(90, 46, 152);
     width: 100%;
-    padding: 3% 3% 3% 5%;
+    padding: 3%;
+    padding-left: 5%;
     margin-bottom: 5%;
     background: rgb(14, 14, 14);
+    position: sticky;
+    top: 0;
 
     font: 3em sans-serif;
 }
@@ -28,7 +31,7 @@ body{
 #Searchbar{
     color: white;
     margin-left: 15%;
-    margin-right: 0;
+    margin-right: 0%;
     margin-top: 0;
     padding-top: 0;
     padding-left: 1%;
@@ -38,17 +41,21 @@ body{
     height: 60px;
     width: 500px;
     border-style: none;
-    border-radius: 25px 0 0 25px;
+    border-radius: 25px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 
 #SearchButton{
     color: white;
-    margin-left: 0;
+    margin-left: 0%;
     height: 60px;
     width: 80px;
     background-color: rgb(90, 46, 152);
     border-style: none;
-    border-radius: 0 25px 25px 0;
+    border-radius: 25px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
     font-weight: bold;
 
 
@@ -72,5 +79,43 @@ body{
     color:white;
     border-bottom-style: solid;
     border-bottom-color: rgb(90, 46, 152);
-    font-size: 60%;
+}
+
+#Pizza{
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background-color: rgb(14, 14, 14);
+    border-radius: 20px;
+    padding-top: 60px;
+    padding-left: 25%;
+    font: 1em sans-serif;
+}
+
+#PizzaName{
+    color: rgb(90, 46, 152);
+    font-weight: bold;
+    font-size: large;
+}
+
+#PizzaPrice{}
+
+#cartButton{
+    background-color: rgb(90, 46, 152);
+    color: white;
+    font-weight: bold;
+    border-style: none;
+    border-radius: 15px;
+    height: 40px;
+    width: 100px;
+    margin-top: 60px;
+    margin-bottom: 45px;
+
+
+}
+
+#cartButton:hover{
+    background-color: rgb(79, 43, 129);
+    cursor: pointer;
 }
