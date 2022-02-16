@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @WebServlet("/Pizza")
 public class PizzaServlet extends HttpServlet {
@@ -39,10 +40,16 @@ public class PizzaServlet extends HttpServlet {
 
         List<Pizza> pizzaList = null;
 
-        try {
-            pizzaList = pizzaService.list();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (req.getParameter("searchBar") != null) {
+            try {
+                if (Objects.equals(req.getParameter("searchBar"), "")) {
+                    pizzaList = pizzaService.list();
+                } else {
+                    pizzaList = pizzaService.findPizza(req.getParameter("searchBar"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         PrintWriter writer = resp.getWriter();

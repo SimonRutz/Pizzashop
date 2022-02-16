@@ -8,8 +8,7 @@ body{
 #Header{
     color: rgb(90, 46, 152);
     width: 100%;
-    padding: 3%;
-    padding-left: 5%;
+    padding: 3% 3% 3% 5%;
     margin-bottom: 5%;
     background: rgb(14, 14, 14);
     position: sticky;
@@ -30,8 +29,7 @@ body{
 
 #Searchbar{
     color: white;
-    margin-left: 15%;
-    margin-right: 0%;
+    margin-right: 0;
     margin-top: 0;
     padding-top: 0;
     padding-left: 1%;
@@ -41,24 +39,18 @@ body{
     height: 60px;
     width: 500px;
     border-style: none;
-    border-radius: 25px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
+    border-radius: 25px 0 0 25px;
 }
 
 #SearchButton{
     color: white;
-    margin-left: 0%;
+    margin-left: 0;
     height: 60px;
     width: 80px;
     background-color: rgb(90, 46, 152);
     border-style: none;
-    border-radius: 25px;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
+    border-radius: 0 25px 25px 0;
     font-weight: bold;
-
-
 }
 
 #SearchButton:hover{
@@ -82,10 +74,7 @@ body{
 }
 
 #Pizza{
-    margin-left: 30%;
-    margin-right: 30%;
-    margin-top: 5%;
-    margin-bottom: 5%;
+    margin: 5% 30%;
     background-color: rgb(14, 14, 14);
     border-radius: 20px;
     padding-top: 60px;
@@ -99,7 +88,16 @@ body{
     font-size: large;
 }
 
-#PizzaPrice{}
+#AmountField{
+    color: white;
+    background-color: rgba(34, 34, 34, 0.911);
+    border-style: none;
+    padding-left: 5px;
+    width: 30px;
+    height: 20px;
+    border-radius: 5px
+
+}
 
 #cartButton{
     background-color: rgb(90, 46, 152);
@@ -111,8 +109,6 @@ body{
     width: 100px;
     margin-top: 60px;
     margin-bottom: 45px;
-
-
 }
 
 #cartButton:hover{

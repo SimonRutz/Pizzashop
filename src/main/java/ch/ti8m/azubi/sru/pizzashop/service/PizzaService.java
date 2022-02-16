@@ -17,4 +17,6 @@ public interface PizzaService {
     void updatePizza(Pizza pizza) throws IllegalArgumentException, SQLException;
 
     void deletePizza(int id) throws SQLException;
+
+    List<Pizza> findPizza(String searchText) throws SQLException;
 }

@@ -20,7 +20,6 @@ public class OrderEndpoint {
     }
 
     @GET
-    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Order> getOrderList() throws SQLException {
         return orderService.list();
@@ -34,7 +33,6 @@ public class OrderEndpoint {
     }
 
     @POST
-    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public Order createOrder(Date orderDateTime, String phoneNumber, String address) throws SQLException{
         Order order = new Order(orderDateTime, phoneNumber, address);
@@ -46,7 +44,6 @@ public class OrderEndpoint {
     }
 
     @PUT
-    @Path("/")
     public void updateOrder(Order order) throws SQLException {
         orderService.updateOrder(order);
     }

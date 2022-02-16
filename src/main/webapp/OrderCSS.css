@@ -1,0 +1,31 @@
+body{
+    color: white;
+    background-color: rgba(24, 24, 24, 0.911);
+    padding: 0;
+    margin: 0;
+}
+
+#Header {
+    color: rgb(90, 46, 152);
+    width: 100%;
+    padding: 3% 3% 3% 5%;
+    margin-bottom: 5%;
+    background: rgb(14, 14, 14);
+    position: sticky;
+    top: 0;
+}
+
+#PizzaLink{
+    color: rgba(255, 255, 255, 0.747);
+    text-decoration: none;
+    font: 0.5em sans-serif;
+    font-weight: bold;
+
+    margin-left: 15%;
+}
+
+#PizzaLink:hover {
+    color: white;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(90, 46, 152);
+}

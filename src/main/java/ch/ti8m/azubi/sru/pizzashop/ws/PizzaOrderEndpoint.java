@@ -19,7 +19,6 @@ public class PizzaOrderEndpoint {
     }
 
     @GET
-    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public List<PizzaOrder> getPizzaOrderList() throws SQLException {
         return pizzaOrderService.list();
@@ -33,7 +32,6 @@ public class PizzaOrderEndpoint {
     }
 
     @POST
-    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public PizzaOrder createPizzaOrder(int amount, int pizza_ID, int order_ID) throws SQLException {
         PizzaOrder pizzaOrder = new PizzaOrder();
@@ -45,7 +43,6 @@ public class PizzaOrderEndpoint {
     }
 
     @PUT
-    @Path("/")
     public void updatePizzaOrder(PizzaOrder pizzaOrder) throws SQLException {
         pizzaOrderService.updatePizzaOrder(pizzaOrder);
     }

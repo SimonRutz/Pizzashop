@@ -66,4 +66,10 @@ public class PizzaServiceImpl implements PizzaService{
 
         pizzaDAO.delete(id);
     }
+
+    @Override
+    public List<Pizza> findPizza(String searchText) throws SQLException {
+
+        return pizzaDAO.find(searchText);
+    }
 }
