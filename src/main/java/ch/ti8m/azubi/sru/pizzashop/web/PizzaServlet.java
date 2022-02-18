@@ -1,11 +1,14 @@
 package ch.ti8m.azubi.sru.pizzashop.web;
 
 import ch.ti8m.azubi.sru.pizzashop.dto.Pizza;
+import ch.ti8m.azubi.sru.pizzashop.dto.PizzaOrder;
 import ch.ti8m.azubi.sru.pizzashop.persistence.DataBaseConnection;
+import ch.ti8m.azubi.sru.pizzashop.service.PizzaOrderServiceImpl;
 import ch.ti8m.azubi.sru.pizzashop.service.PizzaServiceImpl;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,6 +37,9 @@ public class PizzaServlet extends HttpServlet {
     DataBaseConnection dataBaseConnection = new DataBaseConnection();
 
     PizzaServiceImpl pizzaService = new PizzaServiceImpl(dataBaseConnection.connection());
+    PizzaOrderServiceImpl pizzaOrderService = new PizzaOrderServiceImpl(dataBaseConnection.connection());
+
+    Map<Integer, Integer> orderedPizzas = new HashMap<>();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -47,6 +53,12 @@ public class PizzaServlet extends HttpServlet {
                 } else {
                     pizzaList = pizzaService.findPizza(req.getParameter("searchBar"));
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                pizzaList = pizzaService.list();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -66,7 +78,17 @@ public class PizzaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        //resp.sendRedirect(req.getRequestURI());
+        try {
+            for (int i = 0; i < pizzaService.list().size()-1; i++ ) {
+                Pizza pizza = pizzaService.list().get(i);
+                if (req.getParameter(pizza.getName() + "Amount") != null) {
+                    orderedPizzas.put(pizza.getID(), Integer.parseInt(req.getParameter(pizza.getName() + "Amount")));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         doGet(req, resp);
     }
 

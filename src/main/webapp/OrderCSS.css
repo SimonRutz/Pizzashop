@@ -13,15 +13,67 @@ body{
     background: rgb(14, 14, 14);
     position: sticky;
     top: 0;
+
+    font: 3em sans-serif;
+}
+
+#Searchbar{
+    color: white;
+    margin-right: 0;
+    margin-top: 0;
+    padding-top: 0;
+    padding-left: 1%;
+    font-size: large;
+    font-weight: bold;
+    background-color: rgba(34, 34, 34, 0.911);
+    height: 60px;
+    width: 500px;
+    border-style: none;
+    border-radius: 25px 0 0 25px;
+}
+
+#SearchButton{
+    color: white;
+    margin-left: 0;
+    height: 60px;
+    width: 80px;
+    background-color: rgb(90, 46, 152);
+    border-style: none;
+    border-radius: 0 25px 25px 0;
+    font-weight: bold;
+}
+
+#SearchButton:hover{
+    background-color: rgb(79, 43, 129);
+    cursor: pointer;
+}
+
+#SearchForm{
+    display: inline;
+    margin-left: 15%;
+    padding: 0;
+}
+
+
+#OrderLink{
+    display: inline;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font: 0.5em sans-serif;
+    font-weight: bold;
+    border-bottom-color: rgb(90, 46, 152);
+    border-bottom-style: solid;
+
+    margin-left: 5%;
 }
 
 #PizzaLink{
-    color: rgba(255, 255, 255, 0.747);
+    color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
     font: 0.5em sans-serif;
     font-weight: bold;
 
-    margin-left: 15%;
+    margin-left: 7.5%;
 }
 
 #PizzaLink:hover {

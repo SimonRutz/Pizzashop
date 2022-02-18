@@ -10,9 +10,12 @@
 <body>
 <div id="Header">
     Pizzashop
-
-    Order
-    <a href="/pizzashop/Pizza" id="PizzaLink"> Pizzamenu</a>
+    <form action="Pizza" method="post" id="SearchForm">
+        <input type="text" placeholder="Margherita..." id="Searchbar" name="searchBar">
+        <input type="submit" value="Search" id="SearchButton" name="searchButton" >
+    </form>
+    <a href="/pizzashop/Pizza" id="PizzaLink">Pizza Menu </a>
+    <a href="/pizzashop/Order" id="OrderLink"> Order</a>
 </div>
 
 </body>

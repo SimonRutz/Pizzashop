@@ -10,10 +10,11 @@
 <body>
 <div id="Header">
     Pizzashop
-    <form action="Pizza" method="post">
+    <form action="Pizza" method="post" id="SearchForm">
         <input type="text" placeholder="Margherita..." id="Searchbar" name="searchBar">
         <input type="submit" value="Search" id="SearchButton" name="searchButton" >
     </form>
+    <a href="/pizzashop/Pizza" id="PizzaLink">Pizza Menu </a>
     <a href="/pizzashop/Order" id="OrderLink"> Order</a>
 </div>
 <!--<div id="Footer">
@@ -27,8 +28,10 @@
                 <p></p>
                 <div id="PizzaPrice"> Price: ${pizza.price} CHF</div>
                 <p></p>
-                <div>Amount: <input type="number" placeholder="0" min="0" max="10" id="AmountField" name="amount"></div>
-                <input type="submit" value="Add to Order" id="cartButton" name="carADD">
+                Amount: <input type="number" placeholder="0" min="0" max="10" id="AmountField" name="amount">
+                <form action="Pizza" method="post" id="OrderAddForm">
+                    <input type="submit" value="Add to Order" id="cartButton" name="carADD">
+                </form>
             </div>
         </div>
     </#list>

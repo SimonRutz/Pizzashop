@@ -58,13 +58,31 @@ body{
     cursor: pointer;
 }
 
+#SearchForm{
+    display: inline;
+    margin-left: 15%;
+    padding: 0;
+}
+
+#PizzaLink{
+    display: inline;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font: 0.5em sans-serif;
+    font-weight: bold;
+    border-bottom-color: rgb(90, 46, 152);
+    border-bottom-style: solid;
+
+    margin-left: 7.5%;
+}
 #OrderLink{
+    display: inline;
     color: rgba(255, 255, 255, 0.747);
     text-decoration: none;
     font: 0.5em sans-serif;
     font-weight: bold;
 
-    margin-left: 15%;
+    margin-left: 5%;
 }
 
 #OrderLink:hover{
