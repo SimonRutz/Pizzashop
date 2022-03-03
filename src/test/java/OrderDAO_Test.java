@@ -4,10 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 
 public class OrderDAO_Test {
@@ -38,7 +35,7 @@ public class OrderDAO_Test {
         try (Connection connection = ConnectionFactory.testConnection()) {
             OrderDAO test = new OrderDAO(connection);
 
-            Order testOrder = new Order(new Date(System.currentTimeMillis()), "0774344865", "SQLstrasse 134");
+            Order testOrder = new Order(new Timestamp(System.currentTimeMillis()), "0774344865", "SQLstrasse 134");
             test.create(testOrder);
 
             Assertions.assertNotNull(testOrder.getID());
@@ -50,9 +47,9 @@ public class OrderDAO_Test {
         try (Connection connection = ConnectionFactory.testConnection()) {
             OrderDAO test = new OrderDAO(connection);
 
-            Order testOrder1 = new Order(new Date(System.currentTimeMillis()), "0774344865", "SQLstrasse 134");
-            Order testOrder2 = new Order(new Date(System.currentTimeMillis()), "0765432123", "SQLstrasse 134");
-            Order testOrder3 = new Order(new Date(System.currentTimeMillis()), "0799999998", "Javastrasse 4");
+            Order testOrder1 = new Order(new Timestamp(System.currentTimeMillis()), "0774344865", "SQLstrasse 134");
+            Order testOrder2 = new Order(new Timestamp(System.currentTimeMillis()), "0765432123", "SQLstrasse 134");
+            Order testOrder3 = new Order(new Timestamp(System.currentTimeMillis()), "0799999998", "Javastrasse 4");
 
             test.create(testOrder1);
             test.create(testOrder2);
@@ -74,9 +71,9 @@ public class OrderDAO_Test {
         try (Connection connection = ConnectionFactory.testConnection()) {
             OrderDAO test = new OrderDAO(connection);
 
-            Order testOrder1 = new Order(new Date(System.currentTimeMillis()), "0774344865", "SQLstrasse 134");
-            Order testOrder2 = new Order(new Date(System.currentTimeMillis()), "0765432123", "SQLstrasse 134");
-            Order testOrder3 = new Order(new Date(System.currentTimeMillis()), "0799999998", "Javastrasse 4");
+            Order testOrder1 = new Order(new Timestamp(System.currentTimeMillis()), "0774344865", "SQLstrasse 134");
+            Order testOrder2 = new Order(new Timestamp(System.currentTimeMillis()), "0765432123", "SQLstrasse 134");
+            Order testOrder3 = new Order(new Timestamp(System.currentTimeMillis()), "0799999998", "Javastrasse 4");
 
             test.create(testOrder1);
             test.create(testOrder2);
@@ -95,15 +92,15 @@ public class OrderDAO_Test {
         try (Connection connection = ConnectionFactory.testConnection()) {
             OrderDAO test = new OrderDAO(connection);
 
-            Order testOrder1 = new Order(new Date(System.currentTimeMillis()), "0774344865", "SQLstrasse 134");
-            Order testOrder2 = new Order(new Date(System.currentTimeMillis()), "0765432123", "SQLstrasse 134");
-            Order testOrder3 = new Order(new Date(System.currentTimeMillis()), "0799999998", "Javastrasse 4");
+            Order testOrder1 = new Order(new Timestamp(System.currentTimeMillis()), "0774344865", "SQLstrasse 134");
+            Order testOrder2 = new Order(new Timestamp(System.currentTimeMillis()), "0765432123", "SQLstrasse 134");
+            Order testOrder3 = new Order(new Timestamp(System.currentTimeMillis()), "0799999998", "Javastrasse 4");
 
             test.create(testOrder1);
             test.create(testOrder2);
             test.create(testOrder3);
 
-            Order updatedPizza = new Order(testOrder2.getID(), new Date(System.currentTimeMillis()), "0755555553", "UpdateErfolgreichStrasse 11");
+            Order updatedPizza = new Order(testOrder2.getID(), new Timestamp(System.currentTimeMillis()), "0755555553", "UpdateErfolgreichStrasse 11");
             test.update(updatedPizza);
 
             Assertions.assertEquals(updatedPizza, test.get(testOrder2.getID()));
@@ -116,9 +113,9 @@ public class OrderDAO_Test {
         try (Connection connection = ConnectionFactory.testConnection()) {
             OrderDAO test = new OrderDAO(connection);
 
-            Order testOrder1 = new Order(new Date(System.currentTimeMillis()), "0774344865", "SQLstrasse 134");
-            Order testOrder2 = new Order(new Date(System.currentTimeMillis()), "0765432123", "SQLstrasse 134");
-            Order testOrder3 = new Order(new Date(System.currentTimeMillis()), "0799999998", "Javastrasse 4");
+            Order testOrder1 = new Order(new Timestamp(System.currentTimeMillis()), "0774344865", "SQLstrasse 134");
+            Order testOrder2 = new Order(new Timestamp(System.currentTimeMillis()), "0765432123", "SQLstrasse 134");
+            Order testOrder3 = new Order(new Timestamp(System.currentTimeMillis()), "0799999998", "Javastrasse 4");
 
             test.create(testOrder1);
             test.create(testOrder2);
@@ -139,16 +136,16 @@ public class OrderDAO_Test {
         try (Connection connection = ConnectionFactory.testConnection()) {
             OrderDAO test = new OrderDAO(connection);
 
-            Order testOrder1 = new Order(new Date(System.currentTimeMillis()), "0774344865", "SQLstrasse 134");
-            Order testOrder2 = new Order(new Date(System.currentTimeMillis()), "0765432123", "SQLstrasse 134");
-            Order testOrder3 = new Order(new Date(System.currentTimeMillis()), "0799999998", "Javastrasse 4");
+            Order testOrder1 = new Order(new Timestamp(System.currentTimeMillis()), "0774344865", "SQLstrasse 134");
+            Order testOrder2 = new Order(new Timestamp(System.currentTimeMillis()), "0765432123", "SQLstrasse 134");
+            Order testOrder3 = new Order(new Timestamp(System.currentTimeMillis()), "0799999998", "Javastrasse 4");
 
             test.create(testOrder1);
             test.create(testOrder2);
             test.create(testOrder3);
 
-            Order updatedOrder = new Order(1, new Date(System.currentTimeMillis()), "Salami", "UpdateStrasse 17");
-            Order newOrder = new Order(new Date(System.currentTimeMillis()), "Marinara", "NeueStrasse 4");
+            Order updatedOrder = new Order(1, new Timestamp(System.currentTimeMillis()), "Salami", "UpdateStrasse 17");
+            Order newOrder = new Order(new Timestamp(System.currentTimeMillis()), "Marinara", "NeueStrasse 4");
 
             test.save(updatedOrder);
             test.save(newOrder);
@@ -164,9 +161,9 @@ public class OrderDAO_Test {
         try (Connection connection = ConnectionFactory.testConnection()) {
             OrderDAO test = new OrderDAO(connection);
 
-            Order testOrder1 = new Order(new Date(System.currentTimeMillis()), "0774344865", "SQLstrasse 134");
-            Order testOrder2 = new Order(new Date(System.currentTimeMillis()), "0765432123", "SQLstrasse 134");
-            Order testOrder3 = new Order(new Date(System.currentTimeMillis()), "0799999998", "Javastrasse 4");
+            Order testOrder1 = new Order(new Timestamp(System.currentTimeMillis()), "0774344865", "SQLstrasse 134");
+            Order testOrder2 = new Order(new Timestamp(System.currentTimeMillis()), "0765432123", "SQLstrasse 134");
+            Order testOrder3 = new Order(new Timestamp(System.currentTimeMillis()), "0799999998", "Javastrasse 4");
 
             test.create(testOrder1);
             test.create(testOrder2);

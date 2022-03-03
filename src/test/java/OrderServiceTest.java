@@ -6,10 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,7 +39,7 @@ public class OrderServiceTest {
         try (Connection connection = ConnectionFactory.testConnection()) {
             OrderServiceImpl testService = new OrderServiceImpl(connection);
 
-            Order order = new Order(new Date(System.currentTimeMillis()), "9999999999", "TestStrasse 4");
+            Order order = new Order(new Timestamp(System.currentTimeMillis()), "9999999999", "TestStrasse 4");
             testService.createOrder(order);
 
             OrderDAO orderDAO = new OrderDAO(connection);
@@ -56,9 +53,9 @@ public class OrderServiceTest {
         try (Connection connection = ConnectionFactory.testConnection()) {
             OrderServiceImpl testService = new OrderServiceImpl(connection);
 
-            Order order1 = new Order(new Date(System.currentTimeMillis()), "9999999999", "TestStrasse 4");
-            Order order2 = new Order(new Date(System.currentTimeMillis()), "8888888888", "TestStrasse 5");
-            Order order3 = new Order(new Date(System.currentTimeMillis()), "7777777777", "TestStrasse 4");
+            Order order1 = new Order(new Timestamp(System.currentTimeMillis()), "9999999999", "TestStrasse 4");
+            Order order2 = new Order(new Timestamp(System.currentTimeMillis()), "8888888888", "TestStrasse 5");
+            Order order3 = new Order(new Timestamp(System.currentTimeMillis()), "7777777777", "TestStrasse 4");
 
             testService.createOrder(order1);
             testService.createOrder(order2);
@@ -75,9 +72,9 @@ public class OrderServiceTest {
         try (Connection connection = ConnectionFactory.testConnection()) {
             OrderServiceImpl testService = new OrderServiceImpl(connection);
 
-            Order order1 = new Order(new Date(System.currentTimeMillis()), "9999999999", "TestStrasse 4");
-            Order order2 = new Order(new Date(System.currentTimeMillis()), "8888888888", "TestStrasse 5");
-            Order order3 = new Order(new Date(System.currentTimeMillis()), "7777777777", "TestStrasse 4");
+            Order order1 = new Order(new Timestamp(System.currentTimeMillis()), "9999999999", "TestStrasse 4");
+            Order order2 = new Order(new Timestamp(System.currentTimeMillis()), "8888888888", "TestStrasse 5");
+            Order order3 = new Order(new Timestamp(System.currentTimeMillis()), "7777777777", "TestStrasse 4");
 
             testService.createOrder(order1);
             testService.createOrder(order2);
@@ -99,15 +96,15 @@ public class OrderServiceTest {
         try (Connection connection = ConnectionFactory.testConnection()) {
             OrderServiceImpl testService = new OrderServiceImpl(connection);
 
-            Order order1 = new Order(new Date(System.currentTimeMillis()), "9999999999", "TestStrasse 4");
-            Order order2 = new Order(new Date(System.currentTimeMillis()), "8888888888", "TestStrasse 5");
-            Order order3 = new Order(new Date(System.currentTimeMillis()), "7777777777", "TestStrasse 4");
+            Order order1 = new Order(new Timestamp(System.currentTimeMillis()), "9999999999", "TestStrasse 4");
+            Order order2 = new Order(new Timestamp(System.currentTimeMillis()), "8888888888", "TestStrasse 5");
+            Order order3 = new Order(new Timestamp(System.currentTimeMillis()), "7777777777", "TestStrasse 4");
 
             testService.createOrder(order1);
             testService.createOrder(order2);
             testService.createOrder(order3);
 
-            Order updateOrder = new Order(3, new Date(System.currentTimeMillis()), "7777777777", "UpdateStrasse 14");
+            Order updateOrder = new Order(3, new Timestamp(System.currentTimeMillis()), "7777777777", "UpdateStrasse 14");
 
             Assertions.assertEquals(order3, testService.getOrder(3));
 
@@ -123,9 +120,9 @@ public class OrderServiceTest {
         try (Connection connection = ConnectionFactory.testConnection()) {
             OrderServiceImpl testService = new OrderServiceImpl(connection);
 
-            Order order1 = new Order(new Date(System.currentTimeMillis()), "9999999999", "TestStrasse 4");
-            Order order2 = new Order(new Date(System.currentTimeMillis()), "8888888888", "TestStrasse 5");
-            Order order3 = new Order(new Date(System.currentTimeMillis()), "7777777777", "TestStrasse 4");
+            Order order1 = new Order(new Timestamp(System.currentTimeMillis()), "9999999999", "TestStrasse 4");
+            Order order2 = new Order(new Timestamp(System.currentTimeMillis()), "8888888888", "TestStrasse 5");
+            Order order3 = new Order(new Timestamp(System.currentTimeMillis()), "7777777777", "TestStrasse 4");
 
             testService.createOrder(order1);
             testService.createOrder(order2);

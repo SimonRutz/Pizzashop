@@ -17,10 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @WebServlet("/Pizza")
 public class PizzaServlet extends HttpServlet {
@@ -39,7 +36,7 @@ public class PizzaServlet extends HttpServlet {
     PizzaServiceImpl pizzaService = new PizzaServiceImpl(dataBaseConnection.connection());
     PizzaOrderServiceImpl pizzaOrderService = new PizzaOrderServiceImpl(dataBaseConnection.connection());
 
-    Map<Integer, Integer> orderedPizzas = new HashMap<>();
+    Map<Integer, Integer> orderedPizzas = new TreeMap<>();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -48,7 +45,7 @@ public class PizzaServlet extends HttpServlet {
 
         if (req.getParameter("searchBar") != null) {
             try {
-                if (Objects.equals(req.getParameter("searchBar"), "")) {
+                if (req.getParameter("searchBar").equals("")) {
                     pizzaList = pizzaService.list();
                 } else {
                     pizzaList = pizzaService.findPizza(req.getParameter("searchBar"));
@@ -79,17 +76,20 @@ public class PizzaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         try {
-            for (int i = 0; i < pizzaService.list().size()-1; i++ ) {
+            for (int i = 0; i < pizzaService.list().size() - 1; i++) {
                 Pizza pizza = pizzaService.list().get(i);
                 if (req.getParameter(pizza.getName() + "Amount") != null) {
-                    orderedPizzas.put(pizza.getID(), Integer.parseInt(req.getParameter(pizza.getName() + "Amount")));
+                    if(req.getParameter(pizza.getName() + "Amount").equals("")) {
+                        break;
+                    } else {
+                        orderedPizzas.put(pizza.getID(), Integer.parseInt(req.getParameter(pizza.getName() + "Amount")));
+                    }
                 }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
 
         doGet(req, resp);
     }
-
 }

@@ -8,6 +8,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Path("/Order")
@@ -34,7 +35,7 @@ public class OrderEndpoint {
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Order createOrder(Date orderDateTime, String phoneNumber, String address) throws SQLException{
+    public Order createOrder(Timestamp orderDateTime, String phoneNumber, String address) throws SQLException{
         Order order = new Order(orderDateTime, phoneNumber, address);
         order.setOrderDateTime(orderDateTime);
         order.setPhoneNumber(phoneNumber);

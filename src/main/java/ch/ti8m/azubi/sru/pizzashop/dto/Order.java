@@ -1,25 +1,26 @@
 package ch.ti8m.azubi.sru.pizzashop.dto;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Order {
 
     private Integer id;
-    private Date orderDateTime;
+    private Timestamp orderDateTime;
     private String phoneNumber;
     private String address;
 
     public Order() {}
 
-    public Order(Date orderDateTime, String phoneNumber, String address) {
+    public Order(Timestamp orderDateTime, String phoneNumber, String address) {
         this.orderDateTime = orderDateTime;
         this.phoneNumber = phoneNumber;
         this.address = address;
     }
 
-    public Order(Integer id, Date orderDateTime, String phoneNumber, String address) {
+    public Order(Integer id, Timestamp orderDateTime, String phoneNumber, String address) {
         this.id = id;
         this.orderDateTime = orderDateTime;
         this.phoneNumber = phoneNumber;
@@ -34,11 +35,11 @@ public class Order {
         this.id = id;
     }
 
-    public Date getOrderDateTime() {
+    public Timestamp getOrderDateTime() {
         return orderDateTime;
     }
 
-    public void setOrderDateTime(Date orderDateTime) {
+    public void setOrderDateTime(Timestamp orderDateTime) {
         this.orderDateTime = orderDateTime;
     }
 

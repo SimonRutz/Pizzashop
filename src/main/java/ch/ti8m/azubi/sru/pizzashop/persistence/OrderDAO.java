@@ -20,7 +20,7 @@ public class OrderDAO {
 
         try (PreparedStatement statement = connection.prepareStatement("insert into orders (orderDateTime, phoneNumber, address) values (?, ?, ?)", Statement.RETURN_GENERATED_KEYS)){
 
-            statement.setDate(1, order.getOrderDateTime());
+            statement.setTimestamp(1, order.getOrderDateTime());
             statement.setString(2, order.getPhoneNumber());
             statement.setString(3, order.getAddress());
             statement.executeUpdate();
@@ -45,7 +45,7 @@ public class OrderDAO {
 
                 Order order = new Order();
                 order.setID(resultSet.getInt("id"));
-                order.setOrderDateTime(resultSet.getDate("orderDateTime"));
+                order.setOrderDateTime(resultSet.getTimestamp("orderDateTime"));
                 order.setPhoneNumber(resultSet.getString("phoneNumber"));
                 order.setAddress(resultSet.getString("address"));
 
@@ -67,7 +67,7 @@ public class OrderDAO {
 
             while (resultSet.next()) {
 
-                Date orderDateTime = resultSet.getDate("orderDateTime");
+                Timestamp orderDateTime = resultSet.getTimestamp("orderDateTime");
                 String phoneNumber = resultSet.getString("phoneNumber");
                 String address = resultSet.getString("address");
                 returnOrder = new Order(id, orderDateTime, phoneNumber, address);
@@ -80,7 +80,7 @@ public class OrderDAO {
 
         try(PreparedStatement statement = connection.prepareStatement("update orders set orderDateTime = ?, phoneNumber = ?, address = ? where id = ?")) {
 
-            statement.setDate(1, order.getOrderDateTime());
+            statement.setTimestamp(1, order.getOrderDateTime());
             statement.setString(2, order.getPhoneNumber());
             statement.setString(3, order.getAddress());
             statement.setInt(4, order.getID());
@@ -131,7 +131,7 @@ public class OrderDAO {
             while (resultSet.next()) {
 
                 Integer id = resultSet.getInt("id");
-                Date orderDateTime = resultSet.getDate("orderDateTime");
+                Timestamp orderDateTime = resultSet.getTimestamp("orderDateTime");
                 String phoneNumber = resultSet.getString("phoneNumber");
                 String address = resultSet.getString("address");
 
