@@ -29,10 +29,11 @@
     </form>
 
     <div id="OrderList">
+        <div id="OrderTitle"> Ihre Bestellung: </div>
         <#list pizzaList as pizza>
             <div id="Order">
-                <img class="OrderTableRows" id="Image" src="./images/${pizza.name}.jpg" >
-                <div class="OrderTableRows">${amount} x</div>
+                <img id="Image" src="./images/${pizza.name}.jpg" >
+                <div class="OrderTableRows">2 x</div>
                 <div class="OrderTableRows">${pizza.name}</div>
                 <div class="OrderTableRows">${pizza.price} CHF</div>
             </div>

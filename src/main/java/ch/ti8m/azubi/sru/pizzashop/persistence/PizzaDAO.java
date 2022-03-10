@@ -90,7 +90,7 @@ public class PizzaDAO {
 
     public void delete (int id) throws SQLException {
 
-        try (PreparedStatement statement = connection.prepareStatement("delete pizza where id = ?")) {
+        try (PreparedStatement statement = connection.prepareStatement("delete from pizza where id = ?")) {
 
             statement.setInt(1, id);
 

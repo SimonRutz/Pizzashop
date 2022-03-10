@@ -1,8 +1,10 @@
 package ch.ti8m.azubi.sru.pizzashop.web;
 
+import ch.ti8m.azubi.sru.pizzashop.dto.Order;
 import ch.ti8m.azubi.sru.pizzashop.dto.Pizza;
 import ch.ti8m.azubi.sru.pizzashop.dto.PizzaOrder;
 import ch.ti8m.azubi.sru.pizzashop.persistence.DataBaseConnection;
+import ch.ti8m.azubi.sru.pizzashop.service.OrderServiceImpl;
 import ch.ti8m.azubi.sru.pizzashop.service.PizzaOrderServiceImpl;
 import ch.ti8m.azubi.sru.pizzashop.service.PizzaServiceImpl;
 import freemarker.template.Template;
@@ -17,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @WebServlet("/Pizza")
@@ -33,6 +37,7 @@ public class PizzaServlet extends HttpServlet {
 
     DataBaseConnection dataBaseConnection = new DataBaseConnection();
 
+    OrderServiceImpl orderService = new OrderServiceImpl(dataBaseConnection.connection());
     PizzaServiceImpl pizzaService = new PizzaServiceImpl(dataBaseConnection.connection());
     PizzaOrderServiceImpl pizzaOrderService = new PizzaOrderServiceImpl(dataBaseConnection.connection());
 
@@ -82,7 +87,8 @@ public class PizzaServlet extends HttpServlet {
                     if(req.getParameter(pizza.getName() + "Amount").equals("")) {
                         break;
                     } else {
-                        orderedPizzas.put(pizza.getID(), Integer.parseInt(req.getParameter(pizza.getName() + "Amount")));
+                        orderService.createOrder(new Order(Timestamp.valueOf(LocalDateTime.now()), "tempPhone", "tempAddress"));
+                        pizzaOrderService.createPizzaOrder(new PizzaOrder(Integer.parseInt(req.getParameter(pizza.getName() + "Amount")), pizza.getID(),1));
                     }
                 }
             }

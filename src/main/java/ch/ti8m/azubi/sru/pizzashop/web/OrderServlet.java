@@ -2,6 +2,7 @@ package ch.ti8m.azubi.sru.pizzashop.web;
 
 import ch.ti8m.azubi.sru.pizzashop.dto.Order;
 import ch.ti8m.azubi.sru.pizzashop.dto.Pizza;
+import ch.ti8m.azubi.sru.pizzashop.dto.PizzaOrder;
 import ch.ti8m.azubi.sru.pizzashop.persistence.DataBaseConnection;
 import ch.ti8m.azubi.sru.pizzashop.service.OrderServiceImpl;
 import ch.ti8m.azubi.sru.pizzashop.service.PizzaOrderServiceImpl;
@@ -45,24 +46,26 @@ public class OrderServlet extends HttpServlet {
     PizzaOrderServiceImpl pizzaOrderService = new PizzaOrderServiceImpl(dataBaseConnection.connection());
     PizzaServlet pizzaServlet = new PizzaServlet();
 
-    Map<Integer, Integer> orderedPizzas = pizzaServlet.orderedPizzas;
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         List<Pizza> pizzaList = new LinkedList<>();
-
-        for (Integer i : pizzaServlet.orderedPizzas.keySet()) {
-            try {
-                pizzaList.add(pizzaService.getPizza((int) orderedPizzas.keySet().toArray()[i]));
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        List<PizzaOrder> pizzaOrderList = new LinkedList<>();
 
         Writer writer = resp.getWriter();
         Map<String, Object> model = new HashMap<>();
+
+        try {
+            pizzaOrderList = pizzaOrderService.list();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        for (PizzaOrder po : pizzaOrderList) {
+            pizzaList.add(po.getPizza());
+        }
+
         model.put("pizzaList", pizzaList);
+
 
         try {
             template.process(model, writer);

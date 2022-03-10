@@ -91,7 +91,7 @@ public class OrderDAO {
 
     public void delete (int id) throws SQLException {
 
-        try (PreparedStatement statement = connection.prepareStatement("delete orders where id = ?")) {
+        try (PreparedStatement statement = connection.prepareStatement("delete from orders where id = ?")) {
 
             statement.setInt(1, id);
 

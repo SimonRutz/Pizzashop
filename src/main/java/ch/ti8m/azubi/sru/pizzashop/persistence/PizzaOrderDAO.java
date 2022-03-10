@@ -91,7 +91,7 @@ public class PizzaOrderDAO {
 
     public void delete (int pizzaID, int orderID) throws SQLException {
 
-        try (PreparedStatement statement = connection.prepareStatement("delete pizza_ordering where pizza_ID = ? and orders_ID = ?")) {
+        try (PreparedStatement statement = connection.prepareStatement("delete from pizza_ordering where pizza_ID = ? and orders_ID = ?")) {
 
             statement.setInt(1, pizzaID);
             statement.setInt(2, orderID);
