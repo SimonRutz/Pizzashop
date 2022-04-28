@@ -137,7 +137,7 @@ public class PizzaOrderDAO_Test {
             test.create(testPizzaOrder3);
 
             PizzaOrder updatedPizzaOrder = new PizzaOrder(4, pizzaDAO.find("Salami").get(0), 1);
-            test.update(updatedPizzaOrder);
+            test.update(2);
 
             Assertions.assertEquals(updatedPizzaOrder, test.get(1, 1));
         }

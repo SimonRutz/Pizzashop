@@ -21,10 +21,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @WebServlet("/Order")
@@ -61,9 +58,16 @@ public class OrderServlet extends HttpServlet {
             e.printStackTrace();
         }
         for (PizzaOrder po : pizzaOrderList) {
-            pizzaList.add(po.getPizza());
+            if (po.getOrderID() == 0) {
+
+                Pizza pizza = po.getPizza();
+                pizza.setAmount(po.getAmount());
+
+                pizzaList.add(pizza);
+            }
         }
 
+        //model.put("total", 143);
         model.put("pizzaList", pizzaList);
 
 
@@ -82,7 +86,11 @@ public class OrderServlet extends HttpServlet {
         Timestamp dateTime = Timestamp.valueOf(LocalDateTime.now());
 
         try {
-            orderService.createOrder(new Order(dateTime, phoneNumber, address));
+            if (!phoneNumber.equals("") & !address.equals("")) {
+                Order newOrder = new Order(dateTime, phoneNumber, address);
+                orderService.createOrder(newOrder);
+                pizzaOrderService.updatePizzaOrder(newOrder.getID());
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

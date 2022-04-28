@@ -81,14 +81,13 @@ public class PizzaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         try {
-            for (int i = 0; i < pizzaService.list().size() - 1; i++) {
-                Pizza pizza = pizzaService.list().get(i);
+            for (Pizza p : pizzaService.list()) {
+                Pizza pizza = pizzaService.list().get(p.getID() - 1);
                 if (req.getParameter(pizza.getName() + "Amount") != null) {
                     if(req.getParameter(pizza.getName() + "Amount").equals("")) {
                         break;
                     } else {
-                        orderService.createOrder(new Order(Timestamp.valueOf(LocalDateTime.now()), "tempPhone", "tempAddress"));
-                        pizzaOrderService.createPizzaOrder(new PizzaOrder(Integer.parseInt(req.getParameter(pizza.getName() + "Amount")), pizza.getID(),1));
+                        pizzaOrderService.createPizzaOrder(new PizzaOrder(Integer.parseInt(req.getParameter(pizza.getName() + "Amount")), pizza.getID()));
                     }
                 }
             }

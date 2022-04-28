@@ -29,7 +29,22 @@ public class PizzaOrderServiceImpl implements PizzaOrderService{
             throw new IllegalArgumentException("PizzaOrder is required for creation");
         }
 
-        pizzaOrderDAO.create(pizzaOrder);
+        boolean containsPizza = false;
+        int listID = 0;
+
+        for (int i = 0; i < pizzaOrderDAO.list().size() - 1; i++) {
+            if (pizzaOrderDAO.list().get(i).getPizza() == pizzaOrder.getPizza()) {// & pizzaOrderDAO.list().get(i).getOrderID() == 0) {
+                containsPizza = true;
+                listID = i;
+            }
+        }
+
+        if (containsPizza) {
+
+        } else {
+            pizzaOrderDAO.create(pizzaOrder);
+        }
+
         return pizzaOrder;
     }
 
@@ -52,13 +67,9 @@ public class PizzaOrderServiceImpl implements PizzaOrderService{
     }
 
     @Override
-    public void updatePizzaOrder(PizzaOrder pizzaOrder) throws IllegalArgumentException, SQLException {
+    public void updatePizzaOrder(int order_id) throws IllegalArgumentException, SQLException {
 
-        if (pizzaOrder == null) {
-            throw new IllegalArgumentException("PizzaOrder is required for update");
-        }
-
-        pizzaOrderDAO.update(pizzaOrder);
+        pizzaOrderDAO.update(order_id);
     }
 
     @Override

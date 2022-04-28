@@ -143,7 +143,7 @@ public class PizzaOrderServiceTest {
 
             Assertions.assertEquals(pizzaOrder3, testService.getPizzaOrder(1, 1));
 
-            testService.updatePizzaOrder(updateOrder);
+            testService.updatePizzaOrder(2);
 
             Assertions.assertEquals(updateOrder, testService.getPizzaOrder(1, 1));
         }

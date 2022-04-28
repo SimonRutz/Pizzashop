@@ -20,11 +20,17 @@ public class PizzaOrderDAO {
 
     public void create(PizzaOrder pizzaOrder) throws SQLException {
 
-        try (PreparedStatement statement = connection.prepareStatement("insert into pizza_ordering (amount, pizza_ID, orders_ID) values (?, ?, ?)")){
+        try (PreparedStatement statement = connection.prepareStatement("insert into pizza_ordering (amount, pizza_ID, orders_ID) values (?, ?, ?)")) {
 
             statement.setInt(1, pizzaOrder.getAmount());
             statement.setInt(2, pizzaOrder.getPizzaID());
-            statement.setInt(3, pizzaOrder.getOrderID());
+
+            if (pizzaOrder.getOrderID() != null) {
+                statement.setInt(3, pizzaOrder.getOrderID());
+            } else {
+                statement.setString(3, null);
+            }
+
             statement.executeUpdate();
         }
     }
@@ -77,13 +83,11 @@ public class PizzaOrderDAO {
         return returnPizzaOrder;
     }
 
-    public void update (PizzaOrder pizzaOrder) throws  SQLException {
+    public void update (int order_id) throws  SQLException {
 
-        try(PreparedStatement statement = connection.prepareStatement("update pizza_ordering set amount = ? where pizza_ID = ? and orders_ID = ?")) {
+        try(PreparedStatement statement = connection.prepareStatement("update pizza_ordering set orders_ID = ? where orders_ID IS NULL")) {
 
-            statement.setInt(1, pizzaOrder.getAmount());
-            statement.setInt(2, pizzaOrder.getPizzaID());
-            statement.setInt(3, pizzaOrder.getOrderID());
+            statement.setInt(1, order_id);
 
             statement.executeUpdate();
         }

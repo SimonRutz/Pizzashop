@@ -171,3 +171,9 @@ body{
     margin-left: 0;
     margin-top: 3%;
 }
+
+#total{
+    display: flex;
+    flex-direction: row;
+    font: 16px sans-serif;
+}

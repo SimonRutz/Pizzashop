@@ -14,7 +14,7 @@ public interface PizzaOrderService {
 
     List<PizzaOrder> list() throws SQLException;
 
-    void updatePizzaOrder(PizzaOrder pizzaOrder) throws IllegalArgumentException, SQLException;
+    void updatePizzaOrder(int order_id) throws IllegalArgumentException, SQLException;
 
     void deletePizzaOrder(int pizzaID, int orderID) throws SQLException;
 }

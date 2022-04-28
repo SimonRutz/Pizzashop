@@ -7,6 +7,7 @@ public class Pizza {
     private Integer id;
     private String name;
     private Double price;
+    private Integer amount;
 
     public Pizza() {}
 
@@ -19,6 +20,13 @@ public class Pizza {
         this.id = id;
         this.name = name;
         this.price = price;
+    }
+
+    public Pizza(Integer id, String name, Double price, Integer amount) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.amount = amount;
     }
 
     public Integer getID() {
@@ -43,6 +51,14 @@ public class Pizza {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+         this.amount = amount;
     }
 
     @Override

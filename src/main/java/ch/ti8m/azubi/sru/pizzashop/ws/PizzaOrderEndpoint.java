@@ -43,8 +43,8 @@ public class PizzaOrderEndpoint {
     }
 
     @PUT
-    public void updatePizzaOrder(PizzaOrder pizzaOrder) throws SQLException {
-        pizzaOrderService.updatePizzaOrder(pizzaOrder);
+    public void updatePizzaOrder(int order_id) throws SQLException {
+        pizzaOrderService.updatePizzaOrder(order_id);
     }
 
     @DELETE
