@@ -32,18 +32,20 @@
         <div id="OrderTitle"> Your Order: </div>
         <#list pizzaList as pizza>
             <div id="Order">
-                <img id="Image" src="./images/${pizza.name}.jpg">
+                <img id="Image" src="./images/${pizza.name}.jpg" alt="pizzaBild">
                 <div class="OrderTableRows">${pizza.amount} x</div>
                 <div class="OrderTableRows">${pizza.name}</div>
                 <div class="OrderTableRows">${pizza.price} CHF</div>
             </div>
         </#list>
-        <!-- <div id="OrderTitle"></div>
-        <div id="total">
-            <div class="OrderTableRows"></div>
-            <div class="OrderTableRows"> Total: </div>
-            <div class="OrderTableRows">${total} CHF</div>
-        </div> -->
+        <#if pizzaList?has_content>
+            <div id="OrderTitleTotal"></div>
+            <div id="total">
+                <div class="OrderTableRowsTotal"></div>
+                <div class="OrderTableRowsTotal"><b> Total: </b></div>
+                <div class="OrderTableRowsTotal"><b>${total} CHF</b></div>
+            </div>
+        </#if>
     </div>
 
 </div>

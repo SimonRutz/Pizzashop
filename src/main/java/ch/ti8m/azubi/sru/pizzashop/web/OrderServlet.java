@@ -48,6 +48,7 @@ public class OrderServlet extends HttpServlet {
 
         List<Pizza> pizzaList = new LinkedList<>();
         List<PizzaOrder> pizzaOrderList = new LinkedList<>();
+        Double total = 0.0;
 
         Writer writer = resp.getWriter();
         Map<String, Object> model = new HashMap<>();
@@ -60,6 +61,8 @@ public class OrderServlet extends HttpServlet {
         for (PizzaOrder po : pizzaOrderList) {
             if (po.getOrderID() == 0) {
 
+                total += po.getAmount() * po.getPizza().getPrice();
+
                 Pizza pizza = po.getPizza();
                 pizza.setAmount(po.getAmount());
 
@@ -67,7 +70,7 @@ public class OrderServlet extends HttpServlet {
             }
         }
 
-        //model.put("total", 143);
+        model.put("total", total);
         model.put("pizzaList", pizzaList);
 
 

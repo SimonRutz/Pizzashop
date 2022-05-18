@@ -1,5 +1,6 @@
 package ch.ti8m.azubi.sru.pizzashop.service;
 
+import ch.ti8m.azubi.sru.pizzashop.dto.Pizza;
 import ch.ti8m.azubi.sru.pizzashop.dto.PizzaOrder;
 import ch.ti8m.azubi.sru.pizzashop.persistence.OrderDAO;
 import ch.ti8m.azubi.sru.pizzashop.persistence.PizzaOrderDAO;
@@ -29,21 +30,7 @@ public class PizzaOrderServiceImpl implements PizzaOrderService{
             throw new IllegalArgumentException("PizzaOrder is required for creation");
         }
 
-        boolean containsPizza = false;
-        int listID = 0;
-
-        for (int i = 0; i < pizzaOrderDAO.list().size() - 1; i++) {
-            if (pizzaOrderDAO.list().get(i).getPizza() == pizzaOrder.getPizza()) {// & pizzaOrderDAO.list().get(i).getOrderID() == 0) {
-                containsPizza = true;
-                listID = i;
-            }
-        }
-
-        if (containsPizza) {
-
-        } else {
-            pizzaOrderDAO.create(pizzaOrder);
-        }
+        pizzaOrderDAO.create(pizzaOrder);
 
         return pizzaOrder;
     }
