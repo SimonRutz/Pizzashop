@@ -2,7 +2,6 @@ package ch.ti8m.azubi.sru.pizzashop.service;
 
 import ch.ti8m.azubi.sru.pizzashop.dto.Pizza;
 import ch.ti8m.azubi.sru.pizzashop.dto.PizzaOrder;
-import ch.ti8m.azubi.sru.pizzashop.persistence.OrderDAO;
 import ch.ti8m.azubi.sru.pizzashop.persistence.PizzaOrderDAO;
 
 import java.sql.Connection;
@@ -36,9 +35,35 @@ public class PizzaOrderServiceImpl implements PizzaOrderService{
     }
 
     @Override
+    public void combinePizzaOrder(PizzaOrder pizzaOrder) throws IllegalArgumentException, SQLException {
+
+        PizzaOrderDAO pizzaOrderDAO = new PizzaOrderDAO(connection);
+
+        PizzaOrder existingOrder = pizzaOrderDAO.getExistingOrder(pizzaOrder.getPizzaID());
+
+        if(existingOrder == null) {
+            throw new IllegalArgumentException();
+        }
+
+        pizzaOrderDAO.combine(pizzaOrder, existingOrder);
+    }
+
+    @Override
     public PizzaOrder getPizzaOrder(int pizzaID, int orderID) throws NoSuchElementException, SQLException {
 
         PizzaOrder pizzaOrder = pizzaOrderDAO.get(pizzaID, orderID);
+
+        if (pizzaOrder == null) {
+            throw new NoSuchElementException("PizzaOrder with this ID doesn't exist");
+        }
+
+        return pizzaOrder;
+    }
+
+    @Override
+    public PizzaOrder getExistingOrder(int pizzaID) throws NoSuchElementException, SQLException {
+
+        PizzaOrder pizzaOrder = pizzaOrderDAO.getExistingOrder(pizzaID);
 
         if (pizzaOrder == null) {
             throw new NoSuchElementException("PizzaOrder with this ID doesn't exist");
@@ -54,14 +79,26 @@ public class PizzaOrderServiceImpl implements PizzaOrderService{
     }
 
     @Override
-    public void updatePizzaOrder(int order_id) throws IllegalArgumentException, SQLException {
+    public void update(PizzaOrder pizzaOrder) throws SQLException {
 
-        pizzaOrderDAO.update(order_id);
+        pizzaOrderDAO.update(pizzaOrder);
+    }
+
+    @Override
+    public void finishPizzaOrder(int order_id) throws IllegalArgumentException, SQLException {
+
+        pizzaOrderDAO.finishOrder(order_id);
     }
 
     @Override
     public void deletePizzaOrder(int pizzaID, int orderID) throws SQLException {
 
         pizzaOrderDAO.delete(pizzaID, orderID);
+    }
+
+    @Override
+    public void deleteExistingOrder(int pizzaID) throws SQLException {
+
+        pizzaOrderDAO.deleteExistingOrder(pizzaID);
     }
 }

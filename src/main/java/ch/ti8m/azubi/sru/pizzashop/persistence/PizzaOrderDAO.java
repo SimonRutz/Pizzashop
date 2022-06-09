@@ -7,6 +7,7 @@ import org.w3c.dom.stylesheets.LinkStyle;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class PizzaOrderDAO {
 
@@ -30,6 +31,18 @@ public class PizzaOrderDAO {
             } else {
                 statement.setString(3, null);
             }
+
+            statement.executeUpdate();
+        }
+    }
+
+    public void combine(PizzaOrder pizzaOrder, PizzaOrder existingOrder) throws SQLException {
+
+        try (PreparedStatement statement = connection.prepareStatement("update pizza_ordering set amount = ? + ? where pizza_ID = ? and orders_ID is null;")) {
+
+            statement.setInt(1, existingOrder.getAmount());
+            statement.setInt(2, pizzaOrder.getAmount());
+            statement.setInt(3, pizzaOrder.getPizzaID());
 
             statement.executeUpdate();
         }
@@ -83,7 +96,42 @@ public class PizzaOrderDAO {
         return returnPizzaOrder;
     }
 
-    public void update (int order_id) throws  SQLException {
+    public PizzaOrder getExistingOrder(int pizzaID) throws NoSuchElementException, SQLException {
+
+        PizzaOrder returnPizzaOrder = new PizzaOrder();
+
+        try(PreparedStatement statement = connection.prepareStatement("select amount, pizza_ID, orders_ID from pizza_ordering where pizza_ID = ? and orders_ID IS NULL")) {
+
+            statement.setInt(1, pizzaID);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+
+                Integer amount = resultSet.getInt("amount");
+                Integer pizza_ID = resultSet.getInt("pizza_ID");
+                Integer orders_ID = resultSet.getInt("orders_ID");
+
+                PizzaDAO pizzaDAO = new PizzaDAO(connection);
+                returnPizzaOrder = new PizzaOrder(amount, pizzaDAO.get(pizza_ID), orders_ID);
+            }
+        }
+        return returnPizzaOrder;
+    }
+
+    public void update (PizzaOrder pizzaOrder) throws SQLException{
+
+        try(PreparedStatement statement = connection.prepareStatement("update pizza_ordering set amount = ? where pizza_ID = ? and orders_ID = ?")) {
+
+            statement.setInt(1, pizzaOrder.getAmount());
+            statement.setInt(2, pizzaOrder.getPizzaID());
+            statement.setInt(3, pizzaOrder.getOrderID());
+
+            statement.executeUpdate();
+        }
+    }
+
+    public void finishOrder (int order_id) throws  SQLException {
 
         try(PreparedStatement statement = connection.prepareStatement("update pizza_ordering set orders_ID = ? where orders_ID IS NULL")) {
 
@@ -102,6 +150,17 @@ public class PizzaOrderDAO {
 
             statement.executeUpdate();
         }
+    }
+
+    public void deleteExistingOrder (int pizzaID) throws SQLException {
+
+        try (PreparedStatement statement = connection.prepareStatement("delete from pizza_ordering where pizza_ID = ? and orders_ID IS NULL")) {
+
+            statement.setInt(1, pizzaID);
+
+            statement.executeUpdate();
+        }
+
     }
 
     public List<PizzaOrder> find (int search) throws SQLException {

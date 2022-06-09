@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Writer;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -48,7 +47,7 @@ public class OrderServlet extends HttpServlet {
 
         List<Pizza> pizzaList = new LinkedList<>();
         List<PizzaOrder> pizzaOrderList = new LinkedList<>();
-        Double total = 0.0;
+        double total = 0.0;
 
         Writer writer = resp.getWriter();
         Map<String, Object> model = new HashMap<>();
@@ -92,7 +91,7 @@ public class OrderServlet extends HttpServlet {
             if (!phoneNumber.equals("") & !address.equals("")) {
                 Order newOrder = new Order(dateTime, phoneNumber, address);
                 orderService.createOrder(newOrder);
-                pizzaOrderService.updatePizzaOrder(newOrder.getID());
+                pizzaOrderService.finishPizzaOrder(newOrder.getID());
             }
         } catch (SQLException e) {
             e.printStackTrace();

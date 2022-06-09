@@ -1,17 +1,12 @@
-import ch.ti8m.azubi.sru.pizzashop.dto.Order;
 import ch.ti8m.azubi.sru.pizzashop.dto.PizzaOrder;
-import ch.ti8m.azubi.sru.pizzashop.persistence.OrderDAO;
 import ch.ti8m.azubi.sru.pizzashop.persistence.PizzaDAO;
 import ch.ti8m.azubi.sru.pizzashop.persistence.PizzaOrderDAO;
-import ch.ti8m.azubi.sru.pizzashop.service.OrderServiceImpl;
-import ch.ti8m.azubi.sru.pizzashop.service.PizzaOrderService;
 import ch.ti8m.azubi.sru.pizzashop.service.PizzaOrderServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
@@ -143,7 +138,7 @@ public class PizzaOrderServiceTest {
 
             Assertions.assertEquals(pizzaOrder3, testService.getPizzaOrder(1, 1));
 
-            testService.updatePizzaOrder(2);
+            testService.update(updateOrder);
 
             Assertions.assertEquals(updateOrder, testService.getPizzaOrder(1, 1));
         }

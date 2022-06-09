@@ -86,6 +86,9 @@ public class PizzaServlet extends HttpServlet {
                 if (req.getParameter(pizza.getName() + "Amount") != null) {
                     if(req.getParameter(pizza.getName() + "Amount").equals("")) {
                         break;
+                    } else if(pizzaOrderService.list().contains(pizzaOrderService.getExistingOrder(pizza.getID()))){
+                        PizzaOrder pizzaOrder = new PizzaOrder(Integer.parseInt(req.getParameter(pizza.getName() + "Amount")), pizza.getID());
+                        pizzaOrderService.combinePizzaOrder(pizzaOrder);
                     } else {
                         pizzaOrderService.createPizzaOrder(new PizzaOrder(Integer.parseInt(req.getParameter(pizza.getName() + "Amount")), pizza.getID()));
                     }

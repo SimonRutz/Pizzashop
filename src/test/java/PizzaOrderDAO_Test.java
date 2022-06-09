@@ -1,4 +1,3 @@
-import ch.ti8m.azubi.sru.pizzashop.dto.Pizza;
 import ch.ti8m.azubi.sru.pizzashop.dto.PizzaOrder;
 import ch.ti8m.azubi.sru.pizzashop.persistence.PizzaDAO;
 import ch.ti8m.azubi.sru.pizzashop.persistence.PizzaOrderDAO;
@@ -7,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -137,7 +135,7 @@ public class PizzaOrderDAO_Test {
             test.create(testPizzaOrder3);
 
             PizzaOrder updatedPizzaOrder = new PizzaOrder(4, pizzaDAO.find("Salami").get(0), 1);
-            test.update(2);
+            test.update(updatedPizzaOrder);
 
             Assertions.assertEquals(updatedPizzaOrder, test.get(1, 1));
         }
