@@ -1,5 +1,7 @@
 package ch.ti8m.azubi.sru.pizzashop.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -8,6 +10,7 @@ import java.util.Objects;
 public class Order {
 
     private Integer id;
+    @JsonIgnore
     private Timestamp orderDateTime;
     private String phoneNumber;
     private String address;

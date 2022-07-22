@@ -1,6 +1,7 @@
 package ch.ti8m.azubi.sru.pizzashop.dto;
 
 import ch.ti8m.azubi.sru.pizzashop.persistence.PizzaDAO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.xml.soap.SOAPConnectionFactory;
 import java.sql.Connection;
