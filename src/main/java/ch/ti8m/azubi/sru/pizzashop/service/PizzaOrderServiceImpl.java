@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class PizzaOrderServiceImpl implements PizzaOrderService{
 
@@ -35,17 +36,17 @@ public class PizzaOrderServiceImpl implements PizzaOrderService{
     }
 
     @Override
-    public void combinePizzaOrder(PizzaOrder pizzaOrder) throws IllegalArgumentException, SQLException {
-
+    public void combinePizzaOrder(PizzaOrder pizzaOrder) throws NullPointerException, IllegalArgumentException, SQLException {
         PizzaOrderDAO pizzaOrderDAO = new PizzaOrderDAO(connection);
 
         PizzaOrder existingOrder = pizzaOrderDAO.getExistingOrder(pizzaOrder.getPizzaID());
 
-        if(existingOrder == null) {
-            throw new IllegalArgumentException();
+        if (Objects.equals(existingOrder.getPizzaID(), pizzaOrder.getPizzaID())) {
+            pizzaOrderDAO.combine(pizzaOrder, existingOrder);
+        } else {
+            pizzaOrderDAO.create(pizzaOrder);
         }
 
-        pizzaOrderDAO.combine(pizzaOrder, existingOrder);
     }
 
     @Override

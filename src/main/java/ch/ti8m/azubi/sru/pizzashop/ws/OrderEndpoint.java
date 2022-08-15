@@ -1,15 +1,16 @@
 package ch.ti8m.azubi.sru.pizzashop.ws;
 
 import ch.ti8m.azubi.sru.pizzashop.dto.Order;
+import ch.ti8m.azubi.sru.pizzashop.dto.PizzaOrder;
 import ch.ti8m.azubi.sru.pizzashop.service.*;
 import ch.ti8m.azubi.sru.pizzashop.persistence.DataBaseConnection;
 
 import javax.inject.Named;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Named
@@ -17,7 +18,8 @@ import java.util.List;
 public class OrderEndpoint {
 
     DataBaseConnection dataBaseConnection = new DataBaseConnection();
-    //OrderServiceImpl orderService = new OrderServiceImpl(dataBaseConnection.connection());
+    OrderServiceImpl orderService = new OrderServiceImpl(dataBaseConnection.connection());
+    PizzaOrderServiceImpl pizzaOrderService = new PizzaOrderServiceImpl(dataBaseConnection.connection());
 
     public OrderEndpoint() throws SQLException, ClassNotFoundException {
     }
@@ -25,41 +27,42 @@ public class OrderEndpoint {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Order> getOrderList() throws SQLException {
-        return orderService().list();
+        return orderService.list();
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Order getOrder(@PathParam("id") int id) throws SQLException {
-        return orderService().getOrder(id);
+        return orderService.getOrder(id);
     }
 
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Order createOrder(Timestamp orderDateTime, String phoneNumber, String address) throws SQLException{
-        Order order = new Order(orderDateTime, phoneNumber, address);
-        order.setOrderDateTime(orderDateTime);
-        order.setPhoneNumber(phoneNumber);
-        order.setAddress(address);
+    public Order createOrder(Order order) throws SQLException{
+        order.setOrderDateTime(new Timestamp(System.currentTimeMillis()));
 
-        return orderService().createOrder(order);
+        for (PizzaOrder pizzaOrder : pizzaOrderService.list()) {
+            if (pizzaOrder.getOrderID() == 0) {
+                orderService.createOrder(order);
+                break;
+            }
+
+        }
+        return order;
     }
 
     @PUT
     public void updateOrder(Order order) throws SQLException {
-        orderService().updateOrder(order);
+        orderService.updateOrder(order);
     }
 
 
     @DELETE 
     @Path("{id}")
     public void deleteOrder(@PathParam("id") int id) throws SQLException {
-        orderService().deleteOrder(id);
-    }
-
-    private OrderService orderService() {
-        return OrderServiceRegistry.getInstance().get(OrderService.class);
+        orderService.deleteOrder(id);
     }
 
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="OrderDAO_Test" tests="7" skipped="0" failures="0" errors="0" timestamp="2022-08-15T08:11:38" hostname="TIM-N468" time="3.222">
+  <properties/>
+  <testcase name="create()" classname="OrderDAO_Test" time="0.654"/>
+  <testcase name="delete()" classname="OrderDAO_Test" time="0.434"/>
+  <testcase name="update()" classname="OrderDAO_Test" time="0.423"/>
+  <testcase name="get()" classname="OrderDAO_Test" time="0.429"/>
+  <testcase name="find()" classname="OrderDAO_Test" time="0.428"/>
+  <testcase name="list()" classname="OrderDAO_Test" time="0.42"/>
+  <testcase name="save()" classname="OrderDAO_Test" time="0.431"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

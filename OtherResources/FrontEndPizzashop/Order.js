@@ -3,7 +3,7 @@ const ORDER_URL = "http://localhost:8080/pizzashop/api/Order"
 const PIZZA_ORDER_URL = 'http://localhost:8080/pizzashop/api/PizzaOrder'
 let total = 0;
 
-function orderTemplate(pizzaOrderData) { 
+function orderTemplate(pizzaOrderData) {
 
     return `
     <div id="Order">
@@ -13,7 +13,7 @@ function orderTemplate(pizzaOrderData) {
         <div class="OrderTableRows" id="PizzaPrice">${pizzaOrderData.pizza.price * pizzaOrderData.amount} CHF</div>
     </div>`
 
-}   
+}
 
 async function getData() {
 
@@ -38,7 +38,7 @@ async function getData() {
         }
 
         document.getElementById("total").innerHTML = "Total: " + Math.round(total * 100) / 100 + " CHF";
-        
+
     } else {
         document.getElementById("Container").hidden = true;
         document.getElementById("OrderTitleTotal").hidden = true;
@@ -56,7 +56,7 @@ function postData() {
             phoneNumber: phoneNumber,
             address: address
         }
-        
+
         fetch(ORDER_URL, {
             method:'post',
             body: JSON.stringify(order),

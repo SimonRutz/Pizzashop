@@ -16,7 +16,7 @@ function pizzaMenuTemplate(pizzaData) {
                 <input type="submit" value="Add to Order" id="cartButton" onclick="postData('${pizzaData.name}', '${pizzaData.id}')">
             </form>
         </div>
-    </div> ` 
+    </div> `
 }
 
 window.onload = async function getPizzaList() {
@@ -46,7 +46,7 @@ window.onload = async function getPizzaList() {
             pizzaData = await response.json();
             console.log(pizzaData);
         }
-    
+
     } else {
         const response = await fetch (PIZZA_URL, {
             method: 'get'
@@ -70,35 +70,34 @@ window.onload = async function getPizzaList() {
     document.getElementById("PizzaMenu").innerHTML = `${pizzaData.map(pizzaMenuTemplate).join('')}`;
 
 }
-    
+
 function postData(pizzaName, pizzaID) {
 
-        let amount = document.getElementById(pizzaName + "Amount").value;
-        
-        if(amount != null) {
+    let amount = document.getElementById(pizzaName + "Amount").value;
 
-            const pizzaOrder = {
-                amount: amount,
-                pizzaID: pizzaID,
-                orderID: null
-            }
-                            
-            fetch(PIZZA_ORDER_URL, {
-                method:'post',
-                body: JSON.stringify(pizzaOrder),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(function (response) {
-                return response.text();
-            }).then(function (text) {
-                console.log(text);
-            }).catch(function (error) {
-                console.error(error);
-            });
+    if(amount != null) {
 
+        const pizzaOrder = {
+            amount: amount,
+            pizzaID: pizzaID,
+            orderID: null
         }
-}
 
+        fetch(PIZZA_ORDER_URL, {
+            method:'post',
+            body: JSON.stringify(pizzaOrder),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function (response) {
+            return response.text();
+        }).then(function (text) {
+            console.log(text);
+        }).catch(function (error) {
+            console.error(error);
+        });
+
+    }
+}
 
 

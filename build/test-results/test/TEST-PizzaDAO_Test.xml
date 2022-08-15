@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="PizzaDAO_Test" tests="7" skipped="0" failures="0" errors="0" timestamp="2022-08-15T08:11:43" hostname="TIM-N468" time="3.182">
+  <properties/>
+  <testcase name="create()" classname="PizzaDAO_Test" time="0.415"/>
+  <testcase name="delete()" classname="PizzaDAO_Test" time="0.416"/>
+  <testcase name="update()" classname="PizzaDAO_Test" time="0.423"/>
+  <testcase name="get()" classname="PizzaDAO_Test" time="0.654"/>
+  <testcase name="find()" classname="PizzaDAO_Test" time="0.429"/>
+  <testcase name="list()" classname="PizzaDAO_Test" time="0.421"/>
+  <testcase name="save()" classname="PizzaDAO_Test" time="0.42"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

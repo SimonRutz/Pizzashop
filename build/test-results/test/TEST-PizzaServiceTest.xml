@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="PizzaServiceTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2022-08-15T08:11:51" hostname="TIM-N468" time="2.097">
+  <properties/>
+  <testcase name="create()" classname="PizzaServiceTest" time="0.42"/>
+  <testcase name="delete()" classname="PizzaServiceTest" time="0.424"/>
+  <testcase name="update()" classname="PizzaServiceTest" time="0.413"/>
+  <testcase name="get()" classname="PizzaServiceTest" time="0.421"/>
+  <testcase name="list()" classname="PizzaServiceTest" time="0.417"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
