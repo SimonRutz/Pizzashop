@@ -70,16 +70,6 @@ function postData() {
         }).catch(function (error) {
             console.error(error);
         })
-
-        fetch(PIZZA_ORDER_URL, {
-            method:'put',
-        }).then(function (response) {
-            return response.text();
-        }).then(function (text) {
-            console.log(text);
-        }).catch(function (error) {
-            console.error(error);
-        })
     }
 }
 

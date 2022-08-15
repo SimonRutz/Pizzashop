@@ -43,14 +43,23 @@ public class OrderEndpoint {
     public Order createOrder(Order order) throws SQLException{
         order.setOrderDateTime(new Timestamp(System.currentTimeMillis()));
 
+        boolean emptyOrder = true;
+
         for (PizzaOrder pizzaOrder : pizzaOrderService.list()) {
             if (pizzaOrder.getOrderID() == 0) {
-                orderService.createOrder(order);
+                emptyOrder = false;
                 break;
             }
-
         }
+
+        if (!emptyOrder) {
+            orderService.createOrder(order);
+
+            pizzaOrderService.finishPizzaOrder(order.getID());
+        }
+
         return order;
+
     }
 
     @PUT
